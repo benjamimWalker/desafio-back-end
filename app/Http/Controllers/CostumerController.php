@@ -49,7 +49,19 @@ class CostumerController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $costumer = $this->costumer->find($id);
+
+        if (is_null($costumer)) {
+            return response()->json(['error' => 'costumer not found'], 404);
+        }
+
+        if (!$request->hasAny(['name', 'cpf'])) {
+            return response()->json(['error' => 'incorrect parameters set'], 422);
+        }
+
+        $costumer->update($request->only(['name', 'cpf']));
+
+        return response()->json($costumer);
     }
 
     public function destroy($id)
