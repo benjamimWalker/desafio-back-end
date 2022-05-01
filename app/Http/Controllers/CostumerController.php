@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CostumerRequest;
 use App\Models\Costumer;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,8 @@ class CostumerController extends Controller
         return response()->json($this->costumer->get(['id', 'name', 'cpf']));
     }
 
-    public function store(Request $request)
+    public function store(CostumerRequest $request)
     {
-        // TODO CREATE REQUEST CLASS TO VALIDATE
         return $this->costumer->create($request->only(['name', 'cpf']));
     }
 
