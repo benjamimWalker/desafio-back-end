@@ -40,7 +40,19 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $product = $this->product->find($id);
+
+        if (is_null($product)) {
+            return response()->json(['error' => 'product not found'], 404);
+        }
+
+        if (!$request->hasAny(['title', 'price', 'writer'])) {
+            return response()->json(['error' => 'incorrect parameters set'], 422);
+        }
+
+        $product->update($request->request->all());
+
+        return response()->json($product);
     }
 
     public function destroy($id)
