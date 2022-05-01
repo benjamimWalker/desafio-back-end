@@ -21,7 +21,8 @@ class CostumerController extends Controller
 
     public function store(Request $request)
     {
-        //
+        // TODO CREATE REQUEST CLASS TO VALIDATE
+        return $this->costumer->create($request->only(['name', 'cpf']));
     }
 
     public function show($id, Request $request)
