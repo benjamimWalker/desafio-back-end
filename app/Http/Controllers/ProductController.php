@@ -23,12 +23,18 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        //
+
     }
 
     public function show($id)
     {
-        //
+        $product = $this->product->find($id);
+
+        if (!$product) {
+            return response()->json(['message' => 'product not found'], 404);
+        }
+
+        return response()->json($product);
     }
 
     public function update(Request $request, $id)
