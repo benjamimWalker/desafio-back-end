@@ -12,9 +12,9 @@ class Sale extends Model
     protected $fillable = [
         'amount',
         'unit_price',
-        'total_price',
         'costumer_id',
-        'product_id'
+        'product_id',
+        'total_price'
     ];
 
     public function costumer()

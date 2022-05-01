@@ -10,8 +10,8 @@ class Costumer extends Model
     use HasFactory;
 
     protected $fillable = [
-      'name',
-      'cpf'
+        'name',
+        'cpf'
     ];
 
     public function addresses()
