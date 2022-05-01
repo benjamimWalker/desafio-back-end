@@ -35,7 +35,8 @@ class CostumerController extends Controller
                 $monthRelation = $request->m[0];
 
                 $query->whereMonth('created_at', $monthRelation, $month)
-                    ->whereYear('created_at', $yearRelation, $year);
+                    ->whereYear('created_at', $yearRelation, $year)
+                    ->orderBy('created_at');
             }
         }])->find($id);
 
