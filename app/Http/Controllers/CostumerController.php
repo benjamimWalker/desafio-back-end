@@ -66,6 +66,14 @@ class CostumerController extends Controller
 
     public function destroy($id)
     {
-        //
+        $costumer = $this->costumer->find($id);
+
+        if (is_null($costumer)) {
+            return response()->json(['error' => 'costumer not found'], 404);
+        }
+
+        $costumer->delete();
+
+        return response()->json(['success' => 'costumer and associated sales deleted']);
     }
 }
