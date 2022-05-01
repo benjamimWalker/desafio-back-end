@@ -24,9 +24,25 @@ class CostumerController extends Controller
         //
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        $costumer = $this->costumer->with(['sales' => function ($query) use ($request) {
+            if ($request->has(['y', 'm'])) {
+                $year = substr($request->y, 1, 4);
+                $yearRelation = $request->y[0];
+
+                $month = substr($request->m, 1, 2);
+                $monthRelation = $request->m[0];
+
+                $query->whereMonth('created_at', $monthRelation, $month)
+                    ->whereYear('created_at', $yearRelation, $year);
+            }
+        }])->find($id);
+
+        if (is_null($costumer)) {
+            return response()->json(['error' => 'costumer not found'], 404);
+        }
+        return response()->json($costumer);
     }
 
     public function update(Request $request, $id)
