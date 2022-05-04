@@ -17,7 +17,7 @@ class CostumerController extends Controller
 
     public function index()
     {
-        return response()->json($this->costumer->get(['id', 'name', 'cpf']));
+        return $this->costumer->with('phones', 'addresses')->get();
     }
 
     public function store(CostumerRequest $request)
@@ -39,7 +39,7 @@ class CostumerController extends Controller
                     ->whereYear('created_at', $yearRelation, $year)
                     ->orderBy('created_at');
             }
-        }])->find($id);
+        }, 'phones', 'addresses'])->find($id);
 
         if (is_null($costumer)) {
             return response()->json(['error' => 'costumer not found'], 404);
